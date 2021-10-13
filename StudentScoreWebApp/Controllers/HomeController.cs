@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentScoreWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,51 @@ namespace StudentScoreWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        StudentContext db = new StudentContext();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult StudentsList()
         {
-            ViewBag.Message = "Your application description page.";
+            var students = db.Students.OrderBy(s => s.LastName).ToList();
+            return View(students);
+        }
+        
 
+        [HttpGet]
+        public ActionResult CreateStudent()
+        {
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult CreateStudent(Student student)
         {
-            ViewBag.Message = "Your contact page.";
+            db.Students.Add(student);
+            db.Students.OrderBy(p => p.LastName);
+            db.SaveChanges();
+            return RedirectToAction("StudentsList");
+        }
 
+        public ActionResult TopFive()
+        {
             return View();
         }
+
+        public ActionResult LowFive()
+        {
+            return View();
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }

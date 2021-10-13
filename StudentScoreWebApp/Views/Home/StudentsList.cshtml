@@ -1,0 +1,57 @@
+﻿@using StudentScoreWebApp.Models
+@model IEnumerable<Student>
+
+
+@{
+    ViewBag.Title = "StudentsList";
+    int i = 1;
+}
+
+<h2 style="padding: 10px 0 20px 0">Список студентов</h2>
+
+<table class="table">
+    <tr>
+        <td></td>
+        <td><h5 style="padding:5px 0 5px 0"><a href="/Home/CreateStudent">Создать нового студента</a></h5></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="font-weight: bold; width: 25%">Фамилия Имя Отчество</td>
+        <td></td>
+        <td style="font-weight: bold; text-align: center; width: 5%">ИАИО</td>
+        <td style="font-weight: bold; text-align: center; width: 5% ">ИЯ</td>
+        <td style="font-weight: bold; text-align: center; width: 5% ">ОЭТ</td>
+        <td style="font-weight: bold; text-align: center; width: 5% ">ЦАП</td>        
+        <td style="font-weight: bold; text-align: center; width: 10% ">Итого</td>
+        <td style="font-weight: bold; text-align: right; width: 15%"></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@i</td>
+            <td>@item.FullName</td>
+            <td>
+                @Html.ActionLink("Править", "EditStudent", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "DeleteStudent", new { id = item.Id })
+            </td>
+            <td style="text-align:center">@item.Score1</td>
+            <td style="text-align:center">@item.Score2</td>
+            <td style="text-align:center">@item.Score3</td>
+            <td style="text-align:center">@item.Score4</td>            
+            <td style="text-align: center; font-weight: bold">@item.TotalScore</td>
+            <td style="text-align:right">@Html.ActionLink("Редактировать оценки", "EditScores", new { id = item.Id })</td>
+
+        </tr>
+       i++;
+    }
+
+</table>
+
+

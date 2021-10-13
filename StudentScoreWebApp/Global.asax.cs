@@ -14,7 +14,7 @@ namespace StudentScoreWebApp
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new StudentDbInitializer());
+            //Database.SetInitializer(new StudentDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
